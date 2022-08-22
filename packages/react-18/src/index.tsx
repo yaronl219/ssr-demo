@@ -1,14 +1,20 @@
 import React from 'react';
-import {StaticRouter} from "react-router-dom/server";
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 
-export default function createApp(url: string) {
-  return () => <StaticRouter basename={"admin-react"} location={url}>
-    <App/>
-  </StaticRouter>
-}
+export default App
+
+ReactDOM.hydrate(
+  <React.StrictMode>
+    <BrowserRouter basename={"react-18"}>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

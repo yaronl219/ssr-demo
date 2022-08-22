@@ -1,9 +1,9 @@
 {
-  "name": "admin-react",
+  "name": "react-18",
   "version": "0.1.0",
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
@@ -68,9 +68,9 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "rimraf ../../dist/admin-react/* &&yarn build:client && yarn build:node",
-    "build:client": "cross-env BUILD_PATH=../../dist/admin-react/client node scripts/build.js",
-    "build:node": "cross-env BUILD_PATH=../../dist/admin-react/node SSR=1 node scripts/buildSSR.js",
+    "build": "rimraf ../../dist/react-18/* &&yarn build:client && yarn build:node",
+    "build:client": "cross-env BUILD_PATH=../../dist/react-18/client node scripts/build.js",
+    "build:node": "cross-env BUILD_PATH=../../dist/react-18/node SSR=1 node scripts/buildSSR.js",
     "test": "node scripts/test.js"
   },
   "browserslist": {

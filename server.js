@@ -3,7 +3,9 @@ const fs = require("fs");
 const express = require("express");
 const homeManifest = require("./dist/home/node/ssr-manifest.json");
 const mobileManifest = require("./dist/mobile/node/ssr-manifest.json");
-const adminReactManifest = require("./dist/admin-react/node/asset-manifest.json");
+
+const getAdminReactManifest = (version) => require(`./dist/react-${version}/node/asset-manifest.json`);
+
 const { renderToString } = require("vue/server-renderer");
 const { createElement } = require("react");
 const { renderToString: renderReactToString  } = require('react-dom/server');
@@ -15,13 +17,16 @@ const homePath = path.join(
 );
 const createHomeApp = require(homePath).default;
 
-const adminReactPath = path.join(
+const getReactPath = (version) => path.join(
   __dirname,
-  "./dist/admin-react",
+  `./dist/react-${version}`,
   "node",
-  adminReactManifest["files"]["main.js"]
+    getAdminReactManifest(version)["files"]["main.js"]
 );
-const createAdminReactApp = require(adminReactPath).default;
+const createReactApp = (version) => {
+  const reactPath =getReactPath(version)
+  return require(reactPath).default;
+}
 
 const mobilePath = path.join(
   __dirname,
@@ -45,11 +50,12 @@ app.use(
 
 app.use(
   "/static",
-  express.static(path.join(__dirname, "./dist/admin-react/client", "static"))
+  express.static(path.join(__dirname, "./dist/react-17/client", "static")),
+  express.static(path.join(__dirname, "./dist/react-18/client", "static")),
 );
 
-const adminReactTemplate = fs.readFileSync(
-  path.join(__dirname, "./dist/admin-react/client/index.html"),
+const getReactTemplate = (version) => fs.readFileSync(
+  path.join(__dirname, `./dist/react-${version}/client/index.html`),
   "utf-8"
 );
 
@@ -92,11 +98,11 @@ app.get("/mobile/*", async (req, res) => {
   res.send(html);
 });
 
-app.get("/admin-react/*", async (req, res) => {
+app.get("/react-17/*", async (req, res) => {
 
-  const app = createElement(createAdminReactApp(req.url))
+  const app = createElement(createReactApp(17)(req.url))
   const appContent = renderReactToString(app);
-  const html = adminReactTemplate
+  const html = getReactTemplate(17)
     .toString()
     .replace('<div id="root">', `<div id="root">${appContent}`);
 
@@ -104,8 +110,26 @@ app.get("/admin-react/*", async (req, res) => {
   res.send(html);
 });
 
-app.get("/admin-react", async (req, res, next) => {
-  res.status(301).redirect("/admin-react/");
+app.get("/react-17", async (req, res, next) => {
+  res.status(301).redirect("/react-17/");
+  next();
+});
+
+app.get("/react-18/*", async (req, res) => {
+
+  const reactApp = createReactApp(18)
+  const app = createElement(reactApp(req.url))
+  const appContent = renderReactToString(app);
+  const html = getReactTemplate(18)
+    .toString()
+    .replace('<div id="root">', `<div id="root">${appContent}`);
+
+  res.setHeader("Content-Type", "text/html");
+  res.send(html);
+});
+
+app.get("/react-18", async (req, res, next) => {
+  res.status(301).redirect("/react-18/");
   next();
 });
 
