@@ -1,19 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
+import * as ReactDOM from 'react-dom/client';
+import {BrowserRouter} from "react-router-dom";
 import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 
 export default App
 
-ReactDOM.hydrate(
-  <React.StrictMode>
-    <BrowserRouter basename={"react-18"}>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+ReactDOM.hydrateRoot(
+    document.getElementById('root') as HTMLElement,
+    <React.StrictMode>
+        <BrowserRouter basename={"react-18"}>
+            <App/>
+        </BrowserRouter>
+    </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

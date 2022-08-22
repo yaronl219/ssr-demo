@@ -4,7 +4,10 @@ import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 
+
+
 export default function createApp(url: string) {
+
   return () => <StaticRouter basename={"react-18"} location={url}>
     <App/>
   </StaticRouter>
