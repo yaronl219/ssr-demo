@@ -1,5 +1,5 @@
 {
-  "name": "vue3-lerna-ssr",
+  "name": "@react-demo/monorepo",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -11,14 +11,12 @@
     "build:home": "yarn workspace home build",
     "build:react-18": "yarn workspace react-18 build"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "4.17.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0",
     "vue": "3.2.31"
   },
   "devDependencies": {

@@ -1,0 +1,15 @@
+{
+  "name": "@react-demo/shared-components",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.43",
+    "react": "^17.0.2",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  }
+}

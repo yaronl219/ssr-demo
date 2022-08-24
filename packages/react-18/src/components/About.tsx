@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Greeting from "@react-demo/shared-components/lib/Greeting";
 
 export function About() {
   return (
